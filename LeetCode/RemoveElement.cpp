@@ -5,14 +5,22 @@ using namespace std;
 class RemoveElement 
 {
 public:
-    int removeelement(vector<int>& nums, int value) 
+    int removeElement(vector<int>& nums, int val) 
     {
-        int i = nums.size() - 1;
-        int j = 0;
-        while (j <= i)
+        int head = 0;
+        int tail = nums.size() - 1;
+       
+        while (head <= tail)
         {
-            
+            if (nums[head] == val)
+            {
+                nums[head] = nums[tail];
+                --tail;
+            }
+            else
+                ++head;
         }
+        return tail+ 1;
     }
 };
 int main(void)
@@ -23,7 +31,7 @@ int main(void)
     vector<int> nums(array, array + 6);
 
     int result;
-    result = test.removeelement(nums, 2);
+    result = test.removeElement(nums, 2);
     for (int i = 0; i < result; ++i) {
         cout << nums[i] << endl;
     }
