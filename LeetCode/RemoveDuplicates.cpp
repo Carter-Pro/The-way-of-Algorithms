@@ -2,19 +2,18 @@
 #include <vector>
 using namespace std;
 
-class RemoveElement {
+class Solution {
 public:
-    int removeelement(vector<int>& nums, int value) {
-        int i = 0;
+    int removeDuplicates(vector<int>& nums)
+    {
+        int n = nums.size();
+        if (n == 0)
+            return 0;
         int j = 0;
-        for (int i = 0; i < nums.size(); ++i) {
-            if (nums[i] == value)
-                continue;
-
-            nums[j] = nums[i];
-            j++;
-        }
-        return j;
+        for (int i = 1; i < nums.size(); ++i)
+            if (nums[j] != nums[i])
+              nums[++j] = nums[i];
+        return j + 1;
     }
 };
 int main(void)
