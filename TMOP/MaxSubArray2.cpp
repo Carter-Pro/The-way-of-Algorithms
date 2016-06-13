@@ -7,12 +7,15 @@ using namespace std;
 int getValue(const vector<int> &v) {
      int size = (int)v.size();
      vector<int> dp(size, 0);
+     vector<int> s(size, 0);
      dp[0] = v[0];
 
-     for (int i = 1; i < size; ++i) {
-          dp[i] = std::max(dp[i-1] + v[i], v[i]);
-     }
-
+     for (int i = 1; i < size; ++i)
+          if (dp[i-1] >= 0) {
+               dp[i] = dp[i-1] + v[i];
+          } else {
+               dp[i] = v[i];
+          }
      return *std::max_element(dp.begin(), dp.end());
 }
 
