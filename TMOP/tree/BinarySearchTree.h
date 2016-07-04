@@ -12,6 +12,11 @@ private:
      binaryTreeNode* _predecessor(binaryTreeNode *p);
      void transplant(binaryTreeNode* u, binaryTreeNode *v);
      void _inorderTreeWalk(binaryTreeNode *p);
+     void _inorderTreeWalk2(binaryTreeNode *p);
+     void _preorderTreeWalk(binaryTreeNode *p);
+     void _preorderTreeWalk2(binaryTreeNode *p);
+     void _postorderTreeWalk(binaryTreeNode *p);
+     void _postorderTreeWalk2(binaryTreeNode *p);
 public:
      BinarySearchTree();
      binaryTreeNode* search(int key);
@@ -22,5 +27,7 @@ public:
      void insert(int key, int value);
      void Delete(int key);
      void inorderTreeWalk();
+     void preorderTreeWalk();
+     void postorderTreeWalk();
      void Print();
 };

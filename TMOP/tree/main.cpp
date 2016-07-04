@@ -18,10 +18,15 @@ int main(int argc, char *argv[])
      BinarySearchTree tree;
      for (auto e : v)
           tree.insert(e, e);
+     cout << "in order" << endl;
      tree.inorderTreeWalk();
 
-     for (int i = 0; i < 5; i++)
-          tree.Delete(v[i]);
-     tree.inorderTreeWalk();
+     cout << "pre order:" << endl;
+     tree.preorderTreeWalk();
+     cout << "post order" << endl;
+     tree.postorderTreeWalk();
+     // for (int i = 0; i < 5; i++)
+     //      tree.Delete(v[i]);
+     // tree.inorderTreeWalk();
      return 0;
 }

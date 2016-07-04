@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 #include "BinarySearchTree.h"
 BinarySearchTree::BinarySearchTree() {
      this->root = nullptr;
@@ -150,21 +151,159 @@ void BinarySearchTree::Delete(int key) {
 
 
 void BinarySearchTree::_inorderTreeWalk(binaryTreeNode* p) {
+     //recursion
+     
      if (p == nullptr)
           return;
 
      _inorderTreeWalk(p->left);
      std::cout << p->key << " ";
      _inorderTreeWalk(p->right);
+}
 
+
+void BinarySearchTree::_inorderTreeWalk2(binaryTreeNode* p) {
+     // method 1
+//      std::stack<binaryTreeNode*> st;
+
+//      while (p || !st.empty()) {
+//           while (p) {
+//                st.push(p);
+//                p = p->left;
+//           }
+
+//           if (!st.empty()) {
+//                p = st.top();
+//                st.pop();
+//                std::cout << p->value << " ";
+//                p = p->right;
+//           }
+//      }
+
+     // method 2
+     std::stack<std::pair<binaryTreeNode*, int> > s;
+     s.push(std::make_pair(p, 0));
+     int times;
+     while (!s.empty()) {
+          p = s.top().first;
+          times = s.top().second;
+          s.pop();
+
+          if (times == 0) {
+               if (p->right)
+                    s.push(std::make_pair(p->right, 0));
+
+               s.push(std::make_pair(p, 1));
+
+               if (p->left)
+                    s.push(std::make_pair(p->left, 0));
+          } else {
+               std::cout << p->value << " ";
+          }
+     }
 }
 
 void BinarySearchTree::inorderTreeWalk() {
+     //中序遍历
      binaryTreeNode* p = root;
      _inorderTreeWalk(p);
      std::cout << std::endl;
+     _inorderTreeWalk2(p);
+     std::cout << std::endl;
 }
 
-void BinarySearchTree::Print() {
-     
+void BinarySearchTree::_preorderTreeWalk(binaryTreeNode* p) {
+     //recursion
+     if (p == nullptr)
+          return;
+
+     std::cout << p->key << " ";
+     _preorderTreeWalk(p->left);
+     _preorderTreeWalk(p->right);
+
 }
+
+void BinarySearchTree::_preorderTreeWalk2(binaryTreeNode* p) {
+     // method 1
+     // std::stack<binaryTreeNode*> st;
+     // st.push(p);
+
+     // while (!st.empty()) {
+     //      binaryTreeNode* x = st.top();
+     //      st.pop();
+     //      std::cout << x->value << " ";
+     //      if (x->right)
+     //           st.push(x->right);
+     //      if (x->left)
+     //           st.push(x->left);
+     // }
+
+     // method 2
+     std::stack<std::pair<binaryTreeNode*, int> > s;
+     s.push(std::make_pair(p, 0));
+     int times;
+     while (!s.empty()) {
+          p = s.top().first;
+          times = s.top().second;
+          s.pop();
+
+          if (times == 0) {
+               if (p->right)
+                    s.push(std::make_pair(p->right, 0));
+               if (p->left)
+                    s.push(std::make_pair(p->left, 0));
+               s.push(std::make_pair(p, 1));
+          } else {
+               std::cout << p->value << " ";
+          }
+     }
+}
+
+void BinarySearchTree::preorderTreeWalk() {
+     binaryTreeNode* p = root;
+     _preorderTreeWalk(p);
+     std::cout << std::endl;
+     _preorderTreeWalk2(p);
+     std::cout << std::endl;
+}
+
+void BinarySearchTree::_postorderTreeWalk(binaryTreeNode* p) {
+     //recursion
+     if (p == nullptr)
+          return;
+
+     _postorderTreeWalk(p->left);
+     _postorderTreeWalk(p->right);
+     std::cout << p->key << " ";
+}
+
+void BinarySearchTree::_postorderTreeWalk2(binaryTreeNode* p) {
+     std::stack<std::pair<binaryTreeNode*, int> > s;
+     s.push(std::make_pair(p, 0));
+
+     int times;
+     while (!s.empty()) {
+          p = s.top().first;
+          times = s.top().second;
+          s.pop();
+
+          if (times == 0) {
+               s.push(std::make_pair(p, 1));
+               if (p->right)
+                    s.push(std::make_pair(p->right, 0));
+               if (p->left)
+                    s.push(std::make_pair(p->left, 0));
+          } else {
+               std::cout << p->value << " ";
+          }
+     }
+}
+
+void BinarySearchTree::postorderTreeWalk() {
+     binaryTreeNode* p = root;
+     _postorderTreeWalk(p);
+     std::cout << std::endl;
+     _postorderTreeWalk2(p);
+     std::cout << std::endl;
+}
+
