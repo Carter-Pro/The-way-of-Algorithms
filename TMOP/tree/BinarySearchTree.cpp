@@ -37,6 +37,8 @@ binaryTreeNode* BinarySearchTree::minimum() {
 
 
 binaryTreeNode* BinarySearchTree::_minimum(binaryTreeNode* p) {
+     if (p == nullptr)
+          return nullptr;
      while(p->left != nullptr)
           p = p->left;
      return p;
@@ -47,6 +49,8 @@ binaryTreeNode* BinarySearchTree::maximum() {
 }
 
 binaryTreeNode* BinarySearchTree::_maximum(binaryTreeNode* p) {
+     if (p == nullptr)
+          return nullptr;
      while(p->right != nullptr)
           p = p->left;
      return p;
@@ -131,21 +135,38 @@ void BinarySearchTree::Delete(int key) {
      binaryTreeNode* z = search(key);
      if (z == nullptr)
           return;
+     // if (z->left == nullptr)
+     //      transplant(z, z->right);
+     // else if (z->right == nullptr)
+     //      transplant(z, z->left);
+     // else {
+     //      binaryTreeNode* y = _minimum(z->right);
+     //      if (y != z->right) {
+     //           transplant(y, y->right);
+     //           y->right = z->right;
+     //           z->right->parent = y;
+     //      }
+     //      transplant(z, y);
+     //      y->left = z->left;
+     //      y->left->parent = y;
+     // }
+
+     // 1. all null
+     if (z->left == nullptr && z->right == nullptr) {
+          transplant(z, nullptr);
+          return;
+     }
+
+     // 2. left or right nullptr
      if (z->left == nullptr)
           transplant(z, z->right);
-     else if (z->right == nullptr)
+     else
           transplant(z, z->left);
-     else {
-          binaryTreeNode* y = _minimum(z->right);
-          if (y != z->right) {
-               transplant(y, y->right);
-               y->right = z->right;
-               z->right->parent = y;
-          }
-          transplant(z, y);
-          y->left = z->left;
-          y->left->parent = y;
-     }
+
+     // 3. none null
+     binaryTreeNode* x = z->right;
+     binaryTreeNode* y = _minimum(x);
+
 }
 
 
